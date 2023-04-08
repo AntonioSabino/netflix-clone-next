@@ -1,4 +1,4 @@
-import Form from './components/Form'
+import AuthForm from './components/Form'
 import Logo from './components/Logo'
 
 export default function AuthPage() {
@@ -16,7 +16,7 @@ export default function AuthPage() {
     >
       <div className="bg-black sm:bg-opacity-50 w-full h-full">
         <Logo />
-        <Form />
+        <AuthForm />
       </div>
     </div>
   )

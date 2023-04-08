@@ -1,7 +1,9 @@
 import { useCallback, useState } from 'react'
 import Input from '../Input'
+import axios from 'axios'
+import { signIn } from 'next-auth/react'
 
-export default function Form() {
+export default function AuthForm() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -12,9 +14,26 @@ export default function Form() {
     setVariant((prev) => (prev === 'login' ? 'register' : 'login'))
   }, [])
 
+  const register = useCallback(async () => {
+    try {
+      await axios.post('/api/auth/register', {
+        name,
+        email,
+        password
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }, [email, name, password])
+
   return (
     <div className="flex justify-center">
       <form
+        onSubmit={(e) => {
+          e.preventDefault()
+
+          register()
+        }}
         className="
           bg-black/70 
           px-16 
