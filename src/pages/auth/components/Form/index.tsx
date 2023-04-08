@@ -14,6 +14,19 @@ export default function AuthForm() {
     setVariant((prev) => (prev === 'login' ? 'register' : 'login'))
   }, [])
 
+  const login = useCallback(async () => {
+    try {
+      await signIn('credentials', {
+        email,
+        password,
+        redirect: true,
+        callbackUrl: '/'
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }, [email, password])
+
   const register = useCallback(async () => {
     try {
       await axios.post('/api/auth/register', {
@@ -21,10 +34,12 @@ export default function AuthForm() {
         email,
         password
       })
+
+      login()
     } catch (error) {
       console.log(error)
     }
-  }, [email, name, password])
+  }, [email, login, name, password])
 
   return (
     <div className="flex justify-center">
@@ -32,7 +47,11 @@ export default function AuthForm() {
         onSubmit={(e) => {
           e.preventDefault()
 
-          register()
+          if (variant === 'login') {
+            login()
+          } else {
+            register()
+          }
         }}
         className="
           bg-black/70 
