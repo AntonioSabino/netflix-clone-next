@@ -20,4 +20,24 @@ model User {
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
   favoriteIds    String[]  @db.ObjectId
+  accounts       Account[]
+}
+
+model Account {
+  id                 String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId             String  @db.ObjectId
+  type               String
+  provider           String
+  providerAccountId  String
+  refreshToken       String? @map("refresh_token") @db.String
+  accessToken        String? @map("access_token") @db.String
+  accessTokenExpires Int?    @map("access_token_expires")
+  tokenType          String? @map("token_type")
+  scope              String?
+  idToken            String? @map("id_token") @db.String
+  sessionState       String? @map("session_state")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId], name: "provider_account_unique")
 }
