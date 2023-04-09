@@ -3,6 +3,10 @@ import Input from '../Input'
 import axios from 'axios'
 import { signIn } from 'next-auth/react'
 
+import { FcGoogle } from 'react-icons/fc'
+import { FaGithub } from 'react-icons/fa'
+import LoginIcon from '../LoginIcon'
+
 export default function AuthForm() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -119,6 +123,14 @@ export default function AuthForm() {
         >
           {variant === 'login' ? 'Entrar' : 'Cadastrar'}
         </button>
+        <div className="flex flex-row items-center gap-4 mt-8 justify-center">
+          <LoginIcon onClick={() => {}}>
+            <FcGoogle size={30} />
+          </LoginIcon>
+          <LoginIcon onClick={() => signIn('github', { callbackUrl: '/' })}>
+            <FaGithub size={30} />
+          </LoginIcon>
+        </div>
         <p className="text-neutral-500 mt-12">
           {variant === 'login' ? 'Novo por aqui?' : 'Já tem uma conta?'}
           <span

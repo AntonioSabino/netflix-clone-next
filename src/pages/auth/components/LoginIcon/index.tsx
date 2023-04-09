@@ -1,10 +1,12 @@
 interface LoginIconProps {
   children: React.ReactNode
+  onClick: () => void
 }
 
-export default function LoginIcon({ children }: LoginIconProps) {
+export default function LoginIcon({ children, onClick }: LoginIconProps) {
   return (
     <div
+      onClick={onClick}
       className="
       w-10
       h-10
