@@ -124,10 +124,22 @@ export default function AuthForm() {
           {variant === 'login' ? 'Entrar' : 'Cadastrar'}
         </button>
         <div className="flex flex-row items-center gap-4 mt-8 justify-center">
-          <LoginIcon onClick={() => {}}>
+          <LoginIcon
+            onClick={() =>
+              signIn('google', {
+                callbackUrl: '/'
+              })
+            }
+          >
             <FcGoogle size={30} />
           </LoginIcon>
-          <LoginIcon onClick={() => signIn('github', { callbackUrl: '/' })}>
+          <LoginIcon
+            onClick={() =>
+              signIn('github', {
+                callbackUrl: '/'
+              })
+            }
+          >
             <FaGithub size={30} />
           </LoginIcon>
         </div>
