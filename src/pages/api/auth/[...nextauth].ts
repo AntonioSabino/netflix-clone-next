@@ -5,10 +5,11 @@ import Credentials from 'next-auth/providers/credentials'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { compare } from 'bcrypt'
 
-import prismadb from '@/lib/prismadb'
+enum Strategy {
+  JWT = 'jwt'
+}
 
-const jwtSecret = process.env.NEXTAUTH_JWT_SECRET
-const appSecret = process.env.NEXTAUTH_SECRET
+import prismadb from '@/lib/prismadb'
 
 const authOptions = {
   providers: [
@@ -33,7 +34,7 @@ const authOptions = {
           type: 'password'
         }
       },
-      async authorize(credentials) {
+      async authorize(credentials, _req) {
         const { email, password } = credentials ?? {}
         if (!email || !password)
           throw new Error('Email and password are required')
@@ -63,10 +64,11 @@ const authOptions = {
   },
   debug: process.env.NODE_ENV === 'development',
   adapter: PrismaAdapter(prismadb),
+  session: { strategy: Strategy.JWT },
   jwt: {
-    secret: jwtSecret
+    secret: process.env.NEXTAUTH_JWT_SECRET
   },
-  secret: appSecret
+  secret: process.env.NEXTAUTH_SECRET
 }
 
 export default NextAuth(authOptions)
