@@ -23,8 +23,7 @@ export default function AuthForm() {
       await signIn('credentials', {
         email,
         password,
-        redirect: true,
-        callbackUrl: '/'
+        callbackUrl: '/profiles'
       })
     } catch (error) {
       console.log(error)
@@ -33,7 +32,7 @@ export default function AuthForm() {
 
   const register = useCallback(async () => {
     try {
-      await axios.post('/api/auth/register', {
+      await axios.post('/api/register', {
         name,
         email,
         password
@@ -127,7 +126,7 @@ export default function AuthForm() {
           <LoginIcon
             onClick={() =>
               signIn('google', {
-                callbackUrl: '/'
+                callbackUrl: '/profiles'
               })
             }
           >
@@ -136,7 +135,7 @@ export default function AuthForm() {
           <LoginIcon
             onClick={() =>
               signIn('github', {
-                callbackUrl: '/'
+                callbackUrl: '/profiles'
               })
             }
           >
