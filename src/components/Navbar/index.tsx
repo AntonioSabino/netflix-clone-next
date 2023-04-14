@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import Image from 'next/image'
 import AccountMenu from '../AccountMenu'
 import MobileMenu from '../MobileMenu'
-import NavbarItem from '../NavbarItem'
+import NavbarItem from './NavbarItem'
 
 import { BsChevronDown, BsSearch, BsBell } from 'react-icons/bs'
 
